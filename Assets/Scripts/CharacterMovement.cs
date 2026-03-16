@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
@@ -20,7 +21,11 @@ public class CharacterMovement : MonoBehaviour
     // jump related variables
     private bool canJump = true;
     private bool doubleJumpAvailable = true;
-    public float jumpPower = 15;
+    private bool isJumpCharging = true;
+    public float jumpPower = 50;
+    public float jumpCharge = 0;
+    public float maxJumpCharge = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,18 +53,25 @@ public class CharacterMovement : MonoBehaviour
             rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, acceleration * Time.deltaTime);
         }
         
-        
-        if (Input.GetButtonDown("Jump") && canJump)
+        if (Input.GetButtonDown("Jump"))
         {
-            canJump = false;
-            rb.AddForce(direction + new Vector3(0, jumpPower, 0), ForceMode.Impulse);
-
-        } else if (Input.GetButtonDown("Jump") && doubleJumpAvailable && !canJump && !IsGrounded)
-        {
-            rb.AddForce(direction + new Vector3(0, jumpPower, 0), ForceMode.Impulse);
+            jumpCharge = 0.0f;
+            isJumpCharging = true;
         }
 
-        if (Input.GetButton("Run"))
+        if (Input.GetButton("Jump"))
+        {
+            jumpCharge += Time.deltaTime;
+            jumpCharge = Mathf.Clamp(jumpCharge, 0, maxJumpCharge);
+        }
+
+        if (Input.GetButtonUp("Jump") && IsGrounded)
+        {
+            float jumpImpulse = (jumpCharge / maxJumpCharge) * jumpPower + (jumpPower / 2);
+            rb.AddForce(direction + new Vector3(0, jumpImpulse, 0), ForceMode.Impulse);
+        }
+
+        if (Input.GetButton("Run") && IsGrounded)
         {
             rb.velocity = Vector3.Lerp(rb.velocity, direction * sprintSpeed, acceleration * Time.deltaTime);
         } else
@@ -71,9 +83,30 @@ public class CharacterMovement : MonoBehaviour
         {
             canJump = true;
             doubleJumpAvailable = true;
+        } else
+        {
+            if (doubleJumpAvailable && Input.GetButtonDown("Jump"))
+            {
+                rb.AddForce(direction + new Vector3(0, jumpPower / 2, 0), ForceMode.Impulse);
+                doubleJumpAvailable = false;
+            }
         }
     }
 
+    private void FixedUpdate() {
+        if (!IsGrounded)
+        {
+            applyGravity();
+        }
+    }
+
+
     public bool IsGrounded => 
         Physics.Raycast(transform.position + Vector3.up * 0.01f, Vector3.down, groundCheckDistance);
+
+    public void applyGravity()
+    {
+        rb.velocity += Vector3.up * Physics.gravity.y * (2f - 1) * Time.fixedDeltaTime;
+    }
+
 }

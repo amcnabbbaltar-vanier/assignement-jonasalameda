@@ -21,7 +21,13 @@ public class CharacterAnimator : MonoBehaviour
     void Update()
     {
         Debug.Log(rb.velocity.magnitude);
+
         animator.SetFloat("CharacterSpeed", rb.velocity.magnitude);
         animator.SetBool("IsGrounded", movement.IsGrounded);
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            animator.SetTrigger("DoJump");
+        }
     }
 }
