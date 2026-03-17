@@ -7,7 +7,7 @@ public class CharacterAnimator : MonoBehaviour
 {
     private Animator animator;
     private CharacterMovement movement;
-    private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
     public AudioSource source; 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +25,8 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetBool("IsGrounded", movement.IsGrounded);
     }
 
-    public void TriggerAnimation(String name, String input)
+    public void TriggerAnimation(string name)
     {
-        if (Input.GetButtonUp(name))
-        {
-            animator.SetTrigger(input);
-        }
+        animator.SetTrigger(name);
     }
 }

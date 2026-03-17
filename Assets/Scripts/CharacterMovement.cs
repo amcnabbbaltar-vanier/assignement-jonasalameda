@@ -26,10 +26,13 @@ public class CharacterMovement : MonoBehaviour
     public float jumpCharge = 0;
     public float maxJumpCharge = 5;
 
+    [SerializeField] CharacterAnimator characterAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = rb.GetComponent<Rigidbody>();
+        characterAnimator = rb.GetComponent<CharacterAnimator>();
     }
 
     // Update is called once per frame
@@ -67,6 +70,8 @@ public class CharacterMovement : MonoBehaviour
 
         if (Input.GetButtonUp("Jump") && IsGrounded)
         {
+            characterAnimator.TriggerAnimation("DoJump");
+
             float jumpImpulse = (jumpCharge / maxJumpCharge) * jumpPower + (jumpPower / 2);
             rb.AddForce(direction + new Vector3(0, jumpImpulse, 0), ForceMode.Impulse);
         }
@@ -87,6 +92,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (doubleJumpAvailable && Input.GetButtonDown("Jump"))
             {
+                characterAnimator.TriggerAnimation("DoJump");
                 rb.AddForce(direction + new Vector3(0, jumpPower / 2, 0), ForceMode.Impulse);
                 doubleJumpAvailable = false;
             }
