@@ -227,6 +227,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &302613908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6323288059439753841, guid: 62bcd79a5599c2240b5a053e30699e63, type: 3}
+  m_PrefabInstance: {fileID: 772041134575387354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,9 +696,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6799155194134901007, guid: e3fe52d757dbacb43a943a5d311369b8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1825469590}
-    - targetCorrespondingSourceObject: {fileID: 6799155194134901007, guid: e3fe52d757dbacb43a943a5d311369b8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1825469591}
   m_SourcePrefab: {fileID: 100100000, guid: e3fe52d757dbacb43a943a5d311369b8, type: 3}
 --- !u!1 &1592549484
 GameObject:
@@ -739,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b86f5923470bc24d99d0d1d56a52a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterMovement: {fileID: 1825469585}
+  pauseMenu: {fileID: 302613908}
 --- !u!1 &1692739381
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,17 +853,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6799155194134901007, guid: e3fe52d757dbacb43a943a5d311369b8, type: 3}
   m_PrefabInstance: {fileID: 1515190770}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1825469585 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5350154158508262512, guid: e3fe52d757dbacb43a943a5d311369b8, type: 3}
-  m_PrefabInstance: {fileID: 1515190770}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825469584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f188286ef6f4de438461e99982ba925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1825469587 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 1027559884138143172, guid: e3fe52d757dbacb43a943a5d311369b8, type: 3}
@@ -885,18 +876,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
---- !u!114 &1825469591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825469584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53d34d7fe9945ef4c8a63b7c2c450faf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1960836670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,6 +1016,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1592549486}
+    - target: {fileID: 1049395835932919152, guid: 62bcd79a5599c2240b5a053e30699e63, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
     - target: {fileID: 2033836560619151815, guid: 62bcd79a5599c2240b5a053e30699e63, type: 3}
       propertyPath: m_Camera
       value: 

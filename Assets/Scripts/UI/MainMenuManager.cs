@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    void PlayGame()
+    public void PlayGame()
     {
+        Debug.Log("Jawn");
         SceneManager.LoadScene("OverworldLevel1");
     }
 

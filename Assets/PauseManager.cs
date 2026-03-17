@@ -1,31 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private CharacterMovement characterMovement;
-    GameObject pauseMenu;
+    bool isPaused = false;
+    [SerializeField] private GameObject pauseMenu;
 
-    void Start()
+    void Update()
     {
-        pauseMenu = GameObject.Find("Pause");
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (isPaused)
+            {
+                Resume();
+            } else
+            {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0;
+                isPaused = true;
+            } 
+        }
     }
-    public void PauseGame()
-    {
-        pauseMenu.SetActive(true);
 
-        Time.timeScale = 0;
-
-        characterMovement.enabled = false;
-    }
-
-    public void UnpauseGame()
+    public void Resume()
     {
         pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
 
+    public void LoadMainMenu()
+    {
         Time.timeScale = 1;
-        
-        characterMovement.enabled = true;
+        isPaused = false;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

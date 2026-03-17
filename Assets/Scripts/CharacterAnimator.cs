@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,14 +21,15 @@ public class CharacterAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(rb.velocity.magnitude);
-
         animator.SetFloat("CharacterSpeed", rb.velocity.magnitude);
         animator.SetBool("IsGrounded", movement.IsGrounded);
+    }
 
-        if (Input.GetButtonUp("Jump"))
+    public void TriggerAnimation(String name, String input)
+    {
+        if (Input.GetButtonUp(name))
         {
-            animator.SetTrigger("DoJump");
+            animator.SetTrigger(input);
         }
     }
 }
